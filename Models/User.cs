@@ -1,4 +1,4 @@
-namespace Models.User
+namespace DuckGame.Models.PlayerInfo
 {
     public class User
     {
@@ -8,6 +8,8 @@ namespace Models.User
         public int SavedHeroId1 {get; set;}
         public int SavedHeroId2 {get; set;}
         public int SavedHeroId3 {get; set;}
+
+        public ICollection<Hero> Heroes {get; set;}
 
     }
 }

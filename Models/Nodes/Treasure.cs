@@ -1,4 +1,4 @@
-namespace Models.Nodes.Treasure
+namespace DuckGame.Models.Nodes
 {
     public class Treasure
     {

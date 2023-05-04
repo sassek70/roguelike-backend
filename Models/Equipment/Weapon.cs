@@ -1,4 +1,4 @@
-namespace Models.Equipment.Weapon
+namespace DuckGame.Models.Equipment
 {
     public class Weapon
     {

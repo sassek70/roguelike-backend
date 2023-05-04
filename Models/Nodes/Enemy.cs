@@ -1,4 +1,4 @@
-namespace Models.Enemy
+namespace DuckGame.Models.Nodes
 {
     public class Enemy
     {

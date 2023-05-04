@@ -1,4 +1,4 @@
-namespace Models.Nodes.Shop
+namespace DuckGame.Models.Nodes
 {
     public class Shop
     {
