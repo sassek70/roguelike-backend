@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace duck_roguelike_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,16 +79,13 @@ namespace duck_roguelike_backend.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SavedHeroId1 = table.Column<int>(type: "int", nullable: false),
-                    SavedHeroId2 = table.Column<int>(type: "int", nullable: false),
-                    SavedHeroId3 = table.Column<int>(type: "int", nullable: false)
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.UserId);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,7 +108,7 @@ namespace duck_roguelike_backend.Migrations
                 name: "Hero",
                 columns: table => new
                 {
-                    HeroId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     HeroName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -137,12 +134,12 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Hero", x => x.HeroId);
+                    table.PrimaryKey("PK_Hero", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Hero_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

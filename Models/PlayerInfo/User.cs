@@ -4,20 +4,20 @@ namespace DuckGame.Models.PlayerInfo
 {
     public class User
     {
-        public int UserId {get; set;}
+        public int Id {get; set;}
         public string UserName {get; set;}
         // public string Password {get; set;}
 
-        [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
-        public int SavedHeroId1 {get; set;}
+        // [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
+        // public int SavedHeroId1 {get; set;} = 0;
 
-        [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
-        public int SavedHeroId2 {get; set;}
+        // [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
+        // public int SavedHeroId2 {get; set;} = 0;
 
-        [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
-        public int SavedHeroId3 {get; set;}
+        // [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
+        // public int SavedHeroId3 {get; set;} = 0;
 
-        public ICollection<Hero> Heroes {get; set;}
+        public List<Hero> Heroes {get; set;} // defines a many relationship with Heroes
 
     }
 }

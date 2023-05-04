@@ -22,14 +22,14 @@ namespace DuckGame.Models
                     {
                         // UserId = 1,
                         UserName = "Kevin",
-                        SavedHeroId1 = 0,
+                        // SavedHeroId1 = 0,
                     },
                     
                     new User 
                     {
                         // UserId = 2,
                         UserName = "Test",
-                        SavedHeroId1 = 1,
+                        // SavedHeroId1 = 1,
                     }
                 );
 

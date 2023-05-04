@@ -1,12 +1,11 @@
-using System.ComponentModel.DataAnnotations;
+using AutoMapper.Configuration.Annotations;
 
-namespace DuckGame.Models.PlayerInfo
+namespace DuckGame.DTO
 {
-    public class Hero
+    public partial class HeroDTO
     {
-        public int Id {get; set;}
+        [Ignore]
         public int UserId {get; set;} //Foreign Key
-        public User User {get; set;} = null!; //defines a one relationship with a User.
         public string HeroName {get; set;}
         public string Class {get; set;}
         public int HeroLevel {get; set;} = 1;
@@ -19,27 +18,12 @@ namespace DuckGame.Models.PlayerInfo
         public int Coins {get; set;} = 0;
         public int TotalEquippedWeaponSize {get; set;} = 0;
         public int TotalEquippedArmorSize {get; set;} = 0;
-
-        [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int EquippedWeaponId1 {get; set;}
-
-        [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int EquippedWeaponId2 {get; set;}
-
-        [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int EquippedArmorId1 {get; set;}
-
-        [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int EquippedArmorId2 {get; set;}
-
-        [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int EquippedArmorId3 {get; set;}
-
-        [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int CurrentZone {get; set;} = 1;
         public int CurrentNode {get; set;} = 1;
-        public DateTime DateLastPlayed {get; set;}
-
-        // public User User{get; set;} = null!; // Required reference navigation to principal model.
     }
 }

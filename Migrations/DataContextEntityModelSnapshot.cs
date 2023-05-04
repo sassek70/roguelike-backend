@@ -155,11 +155,11 @@ namespace duck_roguelike_backend.Migrations
 
             modelBuilder.Entity("DuckGame.Models.PlayerInfo.Hero", b =>
                 {
-                    b.Property<int>("HeroId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BattlesWon")
                         .HasColumnType("int");
@@ -226,7 +226,7 @@ namespace duck_roguelike_backend.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("HeroId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -235,26 +235,17 @@ namespace duck_roguelike_backend.Migrations
 
             modelBuilder.Entity("DuckGame.Models.PlayerInfo.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<int>("SavedHeroId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SavedHeroId2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SavedHeroId3")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
                 });
