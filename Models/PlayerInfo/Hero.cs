@@ -6,7 +6,7 @@ namespace DuckGame.Models.PlayerInfo
     {
         public int HeroId {get; set;}
         public int UserId {get; set;}
-        public string Name {get; set;}
+        public string HeroName {get; set;}
         public string Class {get; set;}
         public int HeroLevel {get; set;} = 1;
         public int TotalHealth {get; set;} = 50;
@@ -17,6 +17,7 @@ namespace DuckGame.Models.PlayerInfo
         public int Deaths {get; set;}  = 0;
         public int Coins {get; set;} = 0;
         public int TotalEquippedWeaponSize {get; set;} = 0;
+        public int TotalEquippedArmorSize {get; set;} = 0;
 
         [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int EquippedWeaponId1 {get; set;}
