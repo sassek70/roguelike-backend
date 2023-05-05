@@ -22,13 +22,22 @@ namespace DuckGame.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Hero>().ToTable("Hero");
-            modelBuilder.Entity<Enemy>().ToTable("Enemy");
-            modelBuilder.Entity<Shop>().ToTable("Shop");
-            modelBuilder.Entity<Treasure>().ToTable("Treasure");
-            modelBuilder.Entity<Armor>().ToTable("Armor");
-            modelBuilder.Entity<Weapon>().ToTable("Weapon");
+            // modelBuilder.Entity<User>().ToTable("User");
+            // modelBuilder.Entity<Hero>().ToTable("Hero");
+            // modelBuilder.Entity<Enemy>().ToTable("Enemy");
+            // modelBuilder.Entity<Shop>().ToTable("Shop");
+            // modelBuilder.Entity<Treasure>().ToTable("Treasure");
+            // modelBuilder.Entity<Armor>().ToTable("Armor");
+            // modelBuilder.Entity<Weapon>().ToTable("Weapon");
+
+            // modelBuilder.Entity<Weapon>().HasData(
+            //     new Weapon { WeaponId = 1, WeaponName = "Fresh Reed"}
+            // )
+
+            modelBuilder.Entity<Hero>(e => 
+            {
+                e.HasOne<User>(u => u.User).WithMany(h => h.Heroes).HasForeignKey(fk => fk.UserId);
+            });
         }
     }
 }

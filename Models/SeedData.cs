@@ -17,6 +17,11 @@ namespace DuckGame.Models
                     throw new ArgumentNullException("Null Context");
                 }
 
+                if (context.Users.Any() || context.Heroes.Any() || context.Shops.Any() || context.Treasures.Any() || context.Enemies.Any() || context.Weapons.Any() || context.Armors.Any())
+                {
+                    return; // exists seed process if existing data is found.
+                }
+
                 context.Users.AddRange(
                     new User 
                     {

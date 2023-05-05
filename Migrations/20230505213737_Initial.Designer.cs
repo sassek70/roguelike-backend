@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace duck_roguelike_backend.Migrations
 {
     [DbContext(typeof(DataContextEntity))]
-    [Migration("20230504181000_Initial")]
+    [Migration("20230505213737_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasKey("ArmorId");
 
-                    b.ToTable("Armor", (string)null);
+                    b.ToTable("Armors");
                 });
 
             modelBuilder.Entity("DuckGame.Models.Equipment.Weapon", b =>
@@ -76,7 +76,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasKey("WeaponId");
 
-                    b.ToTable("Weapon", (string)null);
+                    b.ToTable("Weapons");
                 });
 
             modelBuilder.Entity("DuckGame.Models.Nodes.Enemy", b =>
@@ -109,7 +109,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasKey("EnemyId");
 
-                    b.ToTable("Enemy", (string)null);
+                    b.ToTable("Enemies");
                 });
 
             modelBuilder.Entity("DuckGame.Models.Nodes.Shop", b =>
@@ -128,7 +128,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasKey("ShopId");
 
-                    b.ToTable("Shop", (string)null);
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("DuckGame.Models.Nodes.Treasure", b =>
@@ -153,7 +153,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasKey("TreasureId");
 
-                    b.ToTable("Treasure", (string)null);
+                    b.ToTable("Treasures");
                 });
 
             modelBuilder.Entity("DuckGame.Models.PlayerInfo.Hero", b =>
@@ -233,7 +233,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Hero", (string)null);
+                    b.ToTable("Heroes");
                 });
 
             modelBuilder.Entity("DuckGame.Models.PlayerInfo.User", b =>
@@ -250,7 +250,7 @@ namespace duck_roguelike_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("DuckGame.Models.PlayerInfo.Hero", b =>

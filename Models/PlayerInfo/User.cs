@@ -18,6 +18,7 @@ namespace DuckGame.Models.PlayerInfo
         // public int SavedHeroId3 {get; set;} = 0;
 
         public List<Hero> Heroes {get; set;} // defines a many relationship with Heroes
-
+        // public int HeroId {get; set;} //Foreign Key
+        // public Hero Hero {get; set;} = null!; //defines a one relationship with a Hero.
     }
 }

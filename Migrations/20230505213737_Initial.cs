@@ -12,7 +12,7 @@ namespace duck_roguelike_backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Armor",
+                name: "Armors",
                 columns: table => new
                 {
                     ArmorId = table.Column<int>(type: "int", nullable: false)
@@ -24,11 +24,11 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Armor", x => x.ArmorId);
+                    table.PrimaryKey("PK_Armors", x => x.ArmorId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enemy",
+                name: "Enemies",
                 columns: table => new
                 {
                     EnemyId = table.Column<int>(type: "int", nullable: false)
@@ -42,11 +42,11 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enemy", x => x.EnemyId);
+                    table.PrimaryKey("PK_Enemies", x => x.EnemyId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shop",
+                name: "Shops",
                 columns: table => new
                 {
                     ShopId = table.Column<int>(type: "int", nullable: false)
@@ -56,11 +56,11 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shop", x => x.ShopId);
+                    table.PrimaryKey("PK_Shops", x => x.ShopId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Treasure",
+                name: "Treasures",
                 columns: table => new
                 {
                     TreasureId = table.Column<int>(type: "int", nullable: false)
@@ -72,11 +72,11 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Treasure", x => x.TreasureId);
+                    table.PrimaryKey("PK_Treasures", x => x.TreasureId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -85,11 +85,11 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Weapon",
+                name: "Weapons",
                 columns: table => new
                 {
                     WeaponId = table.Column<int>(type: "int", nullable: false)
@@ -101,11 +101,11 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weapon", x => x.WeaponId);
+                    table.PrimaryKey("PK_Weapons", x => x.WeaponId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Hero",
+                name: "Heroes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -134,18 +134,18 @@ namespace duck_roguelike_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Hero", x => x.Id);
+                    table.PrimaryKey("PK_Heroes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Hero_User_UserId",
+                        name: "FK_Heroes_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hero_UserId",
-                table: "Hero",
+                name: "IX_Heroes_UserId",
+                table: "Heroes",
                 column: "UserId");
         }
 
@@ -153,25 +153,25 @@ namespace duck_roguelike_backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Armor");
+                name: "Armors");
 
             migrationBuilder.DropTable(
-                name: "Enemy");
+                name: "Enemies");
 
             migrationBuilder.DropTable(
-                name: "Hero");
+                name: "Heroes");
 
             migrationBuilder.DropTable(
-                name: "Shop");
+                name: "Shops");
 
             migrationBuilder.DropTable(
-                name: "Treasure");
+                name: "Treasures");
 
             migrationBuilder.DropTable(
-                name: "Weapon");
+                name: "Weapons");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }
