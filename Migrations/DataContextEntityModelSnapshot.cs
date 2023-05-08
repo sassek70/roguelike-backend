@@ -41,12 +41,74 @@ namespace duck_roguelike_backend.Migrations
                     b.Property<int>("Defense")
                         .HasColumnType("int");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
-
                     b.HasKey("ArmorId");
 
                     b.ToTable("Armors");
+
+                    b.HasData(
+                        new
+                        {
+                            ArmorId = 1,
+                            ArmorName = "Fresh Lilipad Helmet",
+                            ArmorType = "Helmet",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 2,
+                            ArmorName = "Fresh Lilipad Breastplate",
+                            ArmorType = "Chest",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 3,
+                            ArmorName = "Fresh Lilipad Shins",
+                            ArmorType = "Legs",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 4,
+                            ArmorName = "Decayed Lilipad Helmet",
+                            ArmorType = "Helmet",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 5,
+                            ArmorName = "Decayed Lilipad Breastplate",
+                            ArmorType = "Chest",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 6,
+                            ArmorName = "Decayed Lilipad Shins",
+                            ArmorType = "Legs",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 7,
+                            ArmorName = "Wood Helmet",
+                            ArmorType = "Helmet",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 8,
+                            ArmorName = "Wood Breatplaste",
+                            ArmorType = "Chest",
+                            Defense = 1
+                        },
+                        new
+                        {
+                            ArmorId = 9,
+                            ArmorName = "Wood Shins",
+                            ArmorType = "Legs",
+                            Defense = 1
+                        });
                 });
 
             modelBuilder.Entity("DuckGame.Models.Equipment.Weapon", b =>
@@ -60,9 +122,6 @@ namespace duck_roguelike_backend.Migrations
                     b.Property<int>("Attack")
                         .HasColumnType("int");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
-
                     b.Property<string>("WeaponName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +133,43 @@ namespace duck_roguelike_backend.Migrations
                     b.HasKey("WeaponId");
 
                     b.ToTable("Weapons");
+
+                    b.HasData(
+                        new
+                        {
+                            WeaponId = 1,
+                            Attack = 2,
+                            WeaponName = "Fresh Reed",
+                            WeaponType = "Melee"
+                        },
+                        new
+                        {
+                            WeaponId = 2,
+                            Attack = 1,
+                            WeaponName = "Decayed Reed",
+                            WeaponType = "Melee"
+                        },
+                        new
+                        {
+                            WeaponId = 3,
+                            Attack = 2,
+                            WeaponName = "Stick",
+                            WeaponType = "Melee"
+                        },
+                        new
+                        {
+                            WeaponId = 4,
+                            Attack = 1,
+                            WeaponName = "Stone Slinger",
+                            WeaponType = "Ranged"
+                        },
+                        new
+                        {
+                            WeaponId = 5,
+                            Attack = 2,
+                            WeaponName = "Sharp Stick",
+                            WeaponType = "Melee"
+                        });
                 });
 
             modelBuilder.Entity("DuckGame.Models.Nodes.Enemy", b =>
@@ -84,10 +180,10 @@ namespace duck_roguelike_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnemyId"));
 
-                    b.Property<int>("Attack")
+                    b.Property<int>("EnemyAttack")
                         .HasColumnType("int");
 
-                    b.Property<int>("Defense")
+                    b.Property<int>("EnemyDefense")
                         .HasColumnType("int");
 
                     b.Property<string>("EnemyName")
@@ -107,6 +203,108 @@ namespace duck_roguelike_backend.Migrations
                     b.HasKey("EnemyId");
 
                     b.ToTable("Enemies");
+
+                    b.HasData(
+                        new
+                        {
+                            EnemyId = 1,
+                            EnemyAttack = 1,
+                            EnemyDefense = 1,
+                            EnemyName = "Tadpole",
+                            EnemyType = "Low-tier",
+                            IsFlying = false,
+                            TotalHealth = 20
+                        },
+                        new
+                        {
+                            EnemyId = 2,
+                            EnemyAttack = 2,
+                            EnemyDefense = 4,
+                            EnemyName = "Turtle",
+                            EnemyType = "Low-tier",
+                            IsFlying = false,
+                            TotalHealth = 35
+                        },
+                        new
+                        {
+                            EnemyId = 3,
+                            EnemyAttack = 2,
+                            EnemyDefense = 2,
+                            EnemyName = "Gosling",
+                            EnemyType = "Low-tier",
+                            IsFlying = false,
+                            TotalHealth = 25
+                        },
+                        new
+                        {
+                            EnemyId = 4,
+                            EnemyAttack = 2,
+                            EnemyDefense = 5,
+                            EnemyName = "Snail",
+                            EnemyType = "Low-tier",
+                            IsFlying = false,
+                            TotalHealth = 45
+                        },
+                        new
+                        {
+                            EnemyId = 5,
+                            EnemyAttack = 7,
+                            EnemyDefense = 8,
+                            EnemyName = "Large Snail",
+                            EnemyType = "High-tier",
+                            IsFlying = false,
+                            TotalHealth = 30
+                        },
+                        new
+                        {
+                            EnemyId = 6,
+                            EnemyAttack = 2,
+                            EnemyDefense = 2,
+                            EnemyName = "Angry Duck",
+                            EnemyType = "High-tier",
+                            IsFlying = false,
+                            TotalHealth = 30
+                        },
+                        new
+                        {
+                            EnemyId = 7,
+                            EnemyAttack = 4,
+                            EnemyDefense = 6,
+                            EnemyName = "Goose",
+                            EnemyType = "High-tier",
+                            IsFlying = true,
+                            TotalHealth = 55
+                        },
+                        new
+                        {
+                            EnemyId = 8,
+                            EnemyAttack = 7,
+                            EnemyDefense = 7,
+                            EnemyName = "King Toad",
+                            EnemyType = "Boss-tier",
+                            IsFlying = false,
+                            TotalHealth = 60
+                        },
+                        new
+                        {
+                            EnemyId = 9,
+                            EnemyAttack = 10,
+                            EnemyDefense = 15,
+                            EnemyName = "Hawk",
+                            EnemyType = "Boss-tier",
+                            IsFlying = true,
+                            TotalHealth = 90
+                        },
+                        new
+                        {
+                            EnemyId = 10,
+                            EnemyAttack = 15,
+                            EnemyDefense = 13,
+                            EnemyName = "Falcon",
+                            EnemyType = "Boss-tier",
+                            IsFlying = true,
+                            TotalHealth = 120
+                        });
                 });
 
             modelBuilder.Entity("DuckGame.Models.Nodes.Shop", b =>

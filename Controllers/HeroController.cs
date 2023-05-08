@@ -20,13 +20,6 @@ public class HeroController : ControllerBase
         }));
     }
 
-    [HttpGet("user/{userId}/heroes")]
-    public IEnumerable<Hero> UserHeroes(int userId)
-    {
-        var heroes = _context.Heroes.Where(c => c.UserId == userId);
-        return heroes;
-    }
-
     [HttpPost("user/{userId}/createhero")]
     public IActionResult CreateNewHero(int userId, HeroDTO heroDTO)
     {

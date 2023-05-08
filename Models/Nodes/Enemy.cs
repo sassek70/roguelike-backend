@@ -5,9 +5,9 @@ namespace DuckGame.Models.Nodes
         public int EnemyId {get; set;}
         public string EnemyName {get; set;}
         public int TotalHealth {get; set;}
-        public int Attack {get; set;}
-        public int Defense {get; set;}
-        public string EnemyType {get; set;}
+        public int EnemyAttack {get; set;}
+        public int EnemyDefense {get; set;}
+        public string EnemyType {get; set;} // Low-tier, High-tier, Boss-tier
         public bool IsFlying {get; set;}
     }
 
