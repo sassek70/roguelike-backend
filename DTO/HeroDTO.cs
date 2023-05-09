@@ -6,10 +6,13 @@ namespace DuckGame.DTO
     {
         [Ignore]
         public int UserId {get; set;} //Foreign Key
+        [Ignore]
         public string HeroName {get; set;}
+        [Ignore]
         public string Class {get; set;}
         public int HeroLevel {get; set;} = 1;
         public int TotalHealth {get; set;} = 50;
+        public int CurrentHealth {get; set;} = 50;
         public int TotalAttack {get; set;} = 1;
         public int TotalDefense {get; set;} = 1;
         public int TotalBattles {get; set;} = 0;
@@ -25,5 +28,8 @@ namespace DuckGame.DTO
         public int EquippedArmorId3 {get; set;}
         public int CurrentZone {get; set;} = 1;
         public int CurrentNode {get; set;} = 1;
+        [Ignore]
+        public string DateLastPlayed {get; set;} = "";
+
     }
 }

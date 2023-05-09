@@ -25,7 +25,7 @@ builder.Services.AddCors((options) =>
                     React.JS - 3000
                     Vue.JS - 8000
             */ 
-            corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+            corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000", "http://localhost:").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
         });
 
         options.AddPolicy("ProdCors", (corsBuilder) => 
@@ -58,7 +58,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

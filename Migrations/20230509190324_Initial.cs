@@ -115,6 +115,7 @@ namespace duck_roguelike_backend.Migrations
                     Class = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HeroLevel = table.Column<int>(type: "int", nullable: false),
                     TotalHealth = table.Column<int>(type: "int", nullable: false),
+                    CurrentHealth = table.Column<int>(type: "int", nullable: false),
                     TotalAttack = table.Column<int>(type: "int", nullable: false),
                     TotalDefense = table.Column<int>(type: "int", nullable: false),
                     TotalBattles = table.Column<int>(type: "int", nullable: false),
@@ -148,15 +149,15 @@ namespace duck_roguelike_backend.Migrations
                 columns: new[] { "ArmorId", "ArmorName", "ArmorType", "Defense" },
                 values: new object[,]
                 {
-                    { 1, "Fresh Lilipad Helmet", "Helmet", 1 },
-                    { 2, "Fresh Lilipad Breastplate", "Chest", 1 },
-                    { 3, "Fresh Lilipad Shins", "Legs", 1 },
+                    { 1, "Fresh Lilipad Helmet", "Helmet", 2 },
+                    { 2, "Fresh Lilipad Breastplate", "Chest", 2 },
+                    { 3, "Fresh Lilipad Shins", "Legs", 2 },
                     { 4, "Decayed Lilipad Helmet", "Helmet", 1 },
                     { 5, "Decayed Lilipad Breastplate", "Chest", 1 },
                     { 6, "Decayed Lilipad Shins", "Legs", 1 },
-                    { 7, "Wood Helmet", "Helmet", 1 },
-                    { 8, "Wood Breatplaste", "Chest", 1 },
-                    { 9, "Wood Shins", "Legs", 1 }
+                    { 7, "Wood Helmet", "Helmet", 3 },
+                    { 8, "Wood Breatplaste", "Chest", 3 },
+                    { 9, "Wood Shins", "Legs", 3 }
                 });
 
             migrationBuilder.InsertData(

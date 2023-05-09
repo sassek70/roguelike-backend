@@ -51,21 +51,21 @@ namespace duck_roguelike_backend.Migrations
                             ArmorId = 1,
                             ArmorName = "Fresh Lilipad Helmet",
                             ArmorType = "Helmet",
-                            Defense = 1
+                            Defense = 2
                         },
                         new
                         {
                             ArmorId = 2,
                             ArmorName = "Fresh Lilipad Breastplate",
                             ArmorType = "Chest",
-                            Defense = 1
+                            Defense = 2
                         },
                         new
                         {
                             ArmorId = 3,
                             ArmorName = "Fresh Lilipad Shins",
                             ArmorType = "Legs",
-                            Defense = 1
+                            Defense = 2
                         },
                         new
                         {
@@ -93,21 +93,21 @@ namespace duck_roguelike_backend.Migrations
                             ArmorId = 7,
                             ArmorName = "Wood Helmet",
                             ArmorType = "Helmet",
-                            Defense = 1
+                            Defense = 3
                         },
                         new
                         {
                             ArmorId = 8,
                             ArmorName = "Wood Breatplaste",
                             ArmorType = "Chest",
-                            Defense = 1
+                            Defense = 3
                         },
                         new
                         {
                             ArmorId = 9,
                             ArmorName = "Wood Shins",
                             ArmorType = "Legs",
-                            Defense = 1
+                            Defense = 3
                         });
                 });
 
@@ -367,6 +367,9 @@ namespace duck_roguelike_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Coins")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentHealth")
                         .HasColumnType("int");
 
                     b.Property<int>("CurrentNode")

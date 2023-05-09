@@ -11,6 +11,7 @@ namespace DuckGame.Models.PlayerInfo
         public string Class {get; set;}
         public int HeroLevel {get; set;} = 1;
         public int TotalHealth {get; set;} = 50;
+        public int CurrentHealth {get; set;} = 50;
         public int TotalAttack {get; set;} = 1;
         public int TotalDefense {get; set;} = 1;
         public int TotalBattles {get; set;} = 0;
@@ -38,7 +39,7 @@ namespace DuckGame.Models.PlayerInfo
         [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int CurrentZone {get; set;} = 1;
         public int CurrentNode {get; set;} = 1;
-        public DateTime DateLastPlayed {get; set;}
+        public string DateLastPlayed {get; set;} = "";
 
         // public User User{get; set;} = null!; // Required reference navigation to principal model.
     }
