@@ -39,7 +39,8 @@ namespace DuckGame.Models.PlayerInfo
         [DisplayFormat(NullDisplayText = "Empty Slot")]
         public int CurrentZone {get; set;} = 1;
         public int CurrentNode {get; set;} = 1;
-        public string DateLastPlayed {get; set;} = "";
+        public DateTime DateLastPlayed {get; set;}
+        // public string DateLastPlayed {get; set;} = "";
 
         // public User User{get; set;} = null!; // Required reference navigation to principal model.
     }

@@ -29,7 +29,10 @@ namespace DuckGame.DTO
         public int CurrentZone {get; set;} = 1;
         public int CurrentNode {get; set;} = 1;
         [Ignore]
-        public string DateLastPlayed {get; set;} = "";
+        public DateTime DateLastPlayed {get; set;}
+        // [Ignore]
+        // public string DateLastPlayed {get; set;} = "";
+
 
     }
 }

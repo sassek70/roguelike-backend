@@ -24,12 +24,13 @@ public class HeroController : ControllerBase
     [HttpPost("user/{userId}/createhero")]
     public IActionResult CreateNewHero(int userId, [FromBody] HeroDTO heroDTO)
     {
+        // String.Format('{0:f}', dt);
         // string jsonBody = Request.Body;
         Hero heroDB = _mapper.Map<Hero>(heroDTO);
         heroDB.UserId = userId;
         heroDB.HeroName = heroDTO.HeroName;
         heroDB.Class = heroDTO.Class;
-        heroDB.DateLastPlayed = DateTime.Now.ToString();
+        heroDB.DateLastPlayed = DateTime.Now;
 
 
         _context.Add(heroDB);
@@ -70,7 +71,9 @@ public class HeroController : ControllerBase
             heroDBExist.EquippedArmorId3 = heroUpdateBody.EquippedArmorId3;
             heroDBExist.CurrentZone = heroUpdateBody.CurrentZone;
             heroDBExist.CurrentNode = heroUpdateBody.CurrentNode;
-            heroDBExist.DateLastPlayed = DateTime.Now.ToString();
+            heroDBExist.DateLastPlayed = DateTime.Now;
+
+            // heroDBExist.DateLastPlayed = DateTime.Now;
             if ( _context.SaveChanges() > 0)
             {
                 return Ok("Saved Successfully");
