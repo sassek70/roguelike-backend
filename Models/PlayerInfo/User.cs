@@ -9,7 +9,8 @@ namespace DuckGame.Models.PlayerInfo
         
         [JsonPropertyName("userName")]
         public string UserName {get; set;}
-        // public string Password {get; set;}
+
+        public string PasswordHash {get; set;} = "";
 
         // [DisplayFormat(NullDisplayText = "Empty Hero Slot")]
         // public int SavedHeroId1 {get; set;} = 0;

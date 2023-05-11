@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using DuckGame.Data;
 using DuckGame.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,31 @@ builder.Services.AddCors((options) =>
                 corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
             });
 });
+
+
+// dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+// enables JWT use.
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+//         options => builder.Configuration.Bind("JwtSettings", options)).AddJwtBearer(x => 
+//         {
+//             // TokenValidationParamter class comes from: using Microsoft.IdentityModel.Tokens
+//             x.TokenValidationParameters = new TokenValidationParameters
+//             {
+//                 ValidIssuer = config["JwtSettings:Issuer"]
+//             }
+//         });
+
+/* To configure the defaults use:
+    
+    builder.Services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    });
+
+*/
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
