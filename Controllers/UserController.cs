@@ -35,16 +35,19 @@ public class UserController : ControllerBase
 
         // userDb.UserName = user.UserName;
 
-        if (user.UserName != "") 
+        var doesExist = _context.Users.Where(u => u.UserName == user.UserName).FirstOrDefault();
+        if (doesExist != null) return BadRequest("Username already exists");
+        if (user.UserName == "") return BadRequest("Username cannot be blank");
+
+        if (user.UserName != "" && doesExist == null) 
         {
             await _context.AddAsync(user);
             await _context.SaveChangesAsync();
-            return Ok();
+            return Ok("Account created succesfully");
         }
-
         else 
         {
-            throw new Exception("Failed to create user");
+            return BadRequest("Failed to create user");
         }
 
     // [HttpPost("user/{userId}/createhero")]

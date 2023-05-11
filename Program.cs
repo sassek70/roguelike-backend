@@ -5,17 +5,11 @@ using DuckGame.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContextEntity>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors((options) => 
 {
-    options.AddPolicy("DevCors", (corsBuilder) => 
+    options.AddPolicy(name: MyAllowSpecificOrigins, (corsBuilder) => 
         {
             /* 
                 Setting CORS policy for development
@@ -28,7 +22,7 @@ builder.Services.AddCors((options) =>
             corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000", "http://localhost:").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
         });
 
-        options.AddPolicy("ProdCors", (corsBuilder) => 
+        options.AddPolicy(name: MyAllowSpecificOrigins, (corsBuilder) => 
             {
                 /* 
                     Setting CORS policy for product, this gets modified to match production url & needs.
@@ -41,6 +35,14 @@ builder.Services.AddCors((options) =>
                 corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
             });
 });
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DataContextEntity>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
@@ -58,6 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
 // app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -4,6 +4,7 @@ using DuckGame.Models.PlayerInfo;
 using DuckGame.DTO;
 using AutoMapper;
 using Newtonsoft;
+using System.Text.Json;
 
 namespace DuckGame.Conrollers;
 
@@ -22,6 +23,7 @@ public class HeroController : ControllerBase
     }
 
     [HttpPost("user/{userId}/createhero")]
+    [Produces("application/json")]
     public IActionResult CreateNewHero(int userId, [FromBody] HeroDTO heroDTO)
     {
         // String.Format('{0:f}', dt);
@@ -32,11 +34,14 @@ public class HeroController : ControllerBase
         heroDB.Class = heroDTO.Class;
         heroDB.DateLastPlayed = DateTime.Now;
 
+        // string jsonBody = JsonSerializer.Serialize(heroDB);
+
 
         _context.Add(heroDB);
         if (_context.SaveChanges() > 0)
         {
-            return Ok($"{heroDB.Class} {heroDB.HeroName} Created successfully");
+            // return Ok($"{heroDB.Class} {heroDB.HeroName} Created successfully");
+            return Ok(heroDB);
         }
 
         throw new Exception("Failed to create hero");
