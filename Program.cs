@@ -3,6 +3,7 @@ using DuckGame.Data;
 using DuckGame.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,16 +42,20 @@ builder.Services.AddCors((options) =>
 
 // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 // enables JWT use.
-// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
-//         options => builder.Configuration.Bind("JwtSettings", options)).AddJwtBearer(x => 
-//         {
-//             // TokenValidationParamter class comes from: using Microsoft.IdentityModel.Tokens
-//             x.TokenValidationParameters = new TokenValidationParameters
-//             {
-//                 ValidIssuer = config["JwtSettings:Issuer"]
-//             }
-//         });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+        options => 
+        {
+            // TokenValidationParamter class comes from: using Microsoft.IdentityModel.Tokens
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    builder.Configuration.GetSection("JwtSettings:Token").Value!))
+            };
+        });
 
 /* To configure the defaults use:
     

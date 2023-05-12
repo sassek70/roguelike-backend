@@ -27,14 +27,14 @@ public class UserController : ControllerBase
         }));
     }
 
-    [HttpGet("/{userId}/heroes")]
+    [HttpGet("{userId}/heroes")]
     public IEnumerable<Hero> UserHeroes(int userId)
     {
         var heroes = _context.Heroes.Where(c => c.UserId == userId);
         return heroes;
     }
 
-    [HttpPost("/createuser")]
+    [HttpPost("createuser")]
     public async Task<ActionResult<User>> CreateNewUser(UserDTO user)
     {
 
@@ -55,7 +55,7 @@ public class UserController : ControllerBase
             await _context.AddAsync(newUser);
             await _context.SaveChangesAsync();
             // string token = CreateToken(newUser);
-            return Ok();
+            return Ok("Account created successfully");
         }
         else 
         {
@@ -69,9 +69,10 @@ public class UserController : ControllerBase
     // {
     //     List<Claim> claims = new List<Claim> 
     //     {
-    //         new Claim(ClaimTypes.Name, user.UserName)    
+    //         // new Claim(ClaimTypes.Name, user.UserName)    
+    //         {new Claim("UserName", user.UserName)}
     //     };
-
+        
     //     // key used to create & verify the JWT
     //     //  "SystemSecurityKey" is from: dotnet add package Microsoft.IdentityModel.Tokens
     //     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
@@ -81,14 +82,16 @@ public class UserController : ControllerBase
 
     //     var token = new JwtSecurityToken(
     //         claims: claims,
-    //         expires: DateTime.Now.AddDays(1),
-    //         signingCredentials: cred
+    //         expires: DateTime.Now.AddSeconds(20),
+    //         signingCredentials: cred,
+    //         issuer: _configuration.GetSection("JwtSettings:Issuer").Value!,
+    //         audience: _configuration.GetSection("JwtSettings:Audience").Value!
     //     );
 
+    //     //Create the JWT to be sent back.
     //     var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
     //     return jwt;
-
     // }
 
 
