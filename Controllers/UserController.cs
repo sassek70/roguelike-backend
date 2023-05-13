@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using DuckGame.Services;
 
 namespace DuckGame.Conrollers;
 
@@ -16,8 +17,7 @@ public class UserController : ControllerBase
 {
     private readonly DataContextEntity _context;
     private readonly IConfiguration _configuration;
-
-    IMapper _mapper;
+     IMapper _mapper;
     public UserController(DataContextEntity context, IConfiguration configuration)
     {
         _configuration = configuration;
@@ -54,8 +54,16 @@ public class UserController : ControllerBase
 
             await _context.AddAsync(newUser);
             await _context.SaveChangesAsync();
-            // string token = CreateToken(newUser);
-            return Ok("Account created successfully");
+            AuthInfo responseObject = new AuthInfo
+            {
+                // Token = UserTokenHandler.CreateToken((User)newUser),
+                UserId = newUser.Id,
+                UserName = newUser.UserName,
+            };
+
+            
+            // UserDTO responseUserObject = _mapper.Map<UserDTO>(newUser);
+            return Ok(responseObject);
         }
         else 
         {
@@ -63,38 +71,5 @@ public class UserController : ControllerBase
         }
 
     }
-
-    //Create the JWT to be sent back.
-    // private string CreateToken(User user)
-    // {
-    //     List<Claim> claims = new List<Claim> 
-    //     {
-    //         // new Claim(ClaimTypes.Name, user.UserName)    
-    //         {new Claim("UserName", user.UserName)}
-    //     };
-        
-    //     // key used to create & verify the JWT
-    //     //  "SystemSecurityKey" is from: dotnet add package Microsoft.IdentityModel.Tokens
-    //     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-    //         _configuration.GetSection("JwtSettings:Token").Value!));
-
-    //     var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-    //     var token = new JwtSecurityToken(
-    //         claims: claims,
-    //         expires: DateTime.Now.AddSeconds(20),
-    //         signingCredentials: cred,
-    //         issuer: _configuration.GetSection("JwtSettings:Issuer").Value!,
-    //         audience: _configuration.GetSection("JwtSettings:Audience").Value!
-    //     );
-
-    //     //Create the JWT to be sent back.
-    //     var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-    //     return jwt;
-    // }
-
-
-
 
 }
