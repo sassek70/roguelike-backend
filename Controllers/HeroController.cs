@@ -22,7 +22,7 @@ public class HeroController : ControllerBase
         }));
     }
 
-    [HttpPost("user/{userId}/createhero")]
+    [HttpPost("{userId}/createhero")]
     [Produces("application/json")]
     public IActionResult CreateNewHero(int userId, [FromBody] HeroDTO heroDTO)
     {
@@ -47,7 +47,7 @@ public class HeroController : ControllerBase
         throw new Exception("Failed to create hero");
     }
 
-    [HttpPatch("user/{userId}/hero/{heroId}/savehero")]
+    [HttpPatch("{userId}/hero/{heroId}/savehero")]
     public IActionResult SaveHero(int userId, int heroId, [FromBody] HeroDTO heroUpdateBody)
     {
         Hero heroDBExist = _context.Heroes.Find(heroId);
