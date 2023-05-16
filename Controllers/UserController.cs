@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using DuckGame.Services;
+using DuckGame.Interfaces;
 
 namespace DuckGame.Conrollers;
 
@@ -17,9 +18,11 @@ public class UserController : ControllerBase
 {
     private readonly DataContextEntity _context;
     private readonly IConfiguration _configuration;
+    private readonly IUserTokenHandler _userTokenHandler;
      IMapper _mapper;
-    public UserController(DataContextEntity context, IConfiguration configuration)
+    public UserController(DataContextEntity context, IConfiguration configuration, IUserTokenHandler userTokenHandler)
     {
+        _userTokenHandler = userTokenHandler;
         _configuration = configuration;
         _context = context;
         _mapper = new Mapper(new MapperConfiguration(config => {
@@ -54,9 +57,10 @@ public class UserController : ControllerBase
 
             await _context.AddAsync(newUser);
             await _context.SaveChangesAsync();
+            
             AuthInfo responseObject = new AuthInfo
             {
-                // Token = UserTokenHandler.CreateToken((User)newUser),
+                Token = _userTokenHandler.CreateToken((User)newUser),
                 UserId = newUser.Id,
                 UserName = newUser.UserName,
             };

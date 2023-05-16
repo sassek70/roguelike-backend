@@ -3,24 +3,25 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using DuckGame.Interfaces;
 using DuckGame.Models.PlayerInfo;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DuckGame.Services
 {
-    public class UserTokenHandler 
+    public class UserTokenHandler : IUserTokenHandler
     {
 
-        // private readonly IConfiguration config;
+        private readonly IConfiguration _config;
 
 
-        // public UserTokenHandler(IConfiguration config)
-        // {
-        //     config = config;
-        // }
+        public UserTokenHandler(IConfiguration config)
+        {
+            _config = config;
+        }
 
 
-        public string CreateToken(User user, IConfiguration config)
+        public string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>
                 {
@@ -31,7 +32,7 @@ namespace DuckGame.Services
             // key used to create & verify the JWT
             //  "SystemSecurityKey" is from: dotnet add package Microsoft.IdentityModel.Tokens
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                config.GetSection("JwtSettings:Token").Value!));
+                _config.GetSection("JwtSettings:Token").Value!));
 
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
@@ -39,8 +40,8 @@ namespace DuckGame.Services
                 claims: claims,
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: cred,
-                issuer: config.GetSection("JwtSettings:Issuer").Value!,
-                audience: config.GetSection("JwtSettings:Audience").Value!
+                issuer: _config.GetSection("JwtSettings:Issuer").Value!,
+                audience: _config.GetSection("JwtSettings:Audience").Value!
             );
 
             //Create the JWT to be sent back.
@@ -49,11 +50,11 @@ namespace DuckGame.Services
             return jwt;
         }
 
-        public string? ValidateToken(string token, IConfiguration config)
+        public string? ValidateToken(string token)
         {
             if (token == null) return null;
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(config.GetSection("JwtSettings:Token").Value!);
+            var key = Encoding.UTF8.GetBytes(_config.GetSection("JwtSettings:Token").Value!);
 
             try
             {
@@ -73,8 +74,7 @@ namespace DuckGame.Services
             }
             catch
             {
-                string expired = "Token expired, please log in again";
-                return expired;
+                return "Token expired, please log in again";
             }
         }
     }
