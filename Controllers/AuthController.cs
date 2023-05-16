@@ -17,10 +17,12 @@ namespace DuckGame.Conrollers;
     {
         private readonly DataContextEntity _context;
         private readonly IConfiguration _configuration;
+        private readonly UserTokenHandler _userTokenHandler;
 
 
-        public AuthController(DataContextEntity context, IConfiguration configuration)
+        public AuthController(DataContextEntity context, IConfiguration configuration, UserTokenHandler userTokenHandler)
         {
+            _userTokenHandler = userTokenHandler;
             _configuration = configuration;
             _context = context;
         }
@@ -34,7 +36,7 @@ namespace DuckGame.Conrollers;
             {
                 AuthInfo responseObject = new AuthInfo
                 {
-                    Token = UserTokenHandler.CreateToken(userDB),
+                    Token = _userTokenHandler.CreateToken(userDB, _configuration),
                     UserId = userDB.Id,
                     UserName = userDB.UserName,
                 };
@@ -47,7 +49,7 @@ namespace DuckGame.Conrollers;
         [HttpPost("existingtoken")]
         public ActionResult<User> ExistingToken([FromBody] string token)
         {
-            var validToken = ValidateToken(token);
+            var validToken = _userTokenHandler.ValidateToken(token, _configuration);
             User user = _context.Users.FirstOrDefault(u => u.UserName == validToken);
             // if (user == null) return BadRequest("Invalid Token. Please log in again");
 

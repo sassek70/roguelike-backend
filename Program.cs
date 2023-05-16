@@ -4,8 +4,11 @@ using DuckGame.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Autofac;
+using DuckGame.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var containerBuilder = new ContainerBuilder();
 
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -39,6 +42,8 @@ builder.Services.AddCors((options) =>
             });
 });
 
+var tokenCreation = new UserTokenHandler();
+containerBuilder.RegisterInstance(tokenCreation).As<UserTokenHandler>();
 
 // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 // enables JWT use.
@@ -56,6 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     builder.Configuration.GetSection("JwtSettings:Token").Value!))
             };
         });
+
 
 
 builder.Services.AddControllers();

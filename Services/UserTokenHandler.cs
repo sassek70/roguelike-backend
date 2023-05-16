@@ -11,15 +11,16 @@ namespace DuckGame.Services
     public class UserTokenHandler 
     {
 
-        private readonly IConfiguration _config;
-
-        public UserTokenHandler(IConfiguration config)
-        {
-            _config = config;
-        }
+        // private readonly IConfiguration config;
 
 
-        public string CreateToken(User user)
+        // public UserTokenHandler(IConfiguration config)
+        // {
+        //     config = config;
+        // }
+
+
+        public string CreateToken(User user, IConfiguration config)
         {
             List<Claim> claims = new List<Claim>
                 {
@@ -30,7 +31,7 @@ namespace DuckGame.Services
             // key used to create & verify the JWT
             //  "SystemSecurityKey" is from: dotnet add package Microsoft.IdentityModel.Tokens
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _config.GetSection("JwtSettings:Token").Value!));
+                config.GetSection("JwtSettings:Token").Value!));
 
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
@@ -38,8 +39,8 @@ namespace DuckGame.Services
                 claims: claims,
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: cred,
-                issuer: _config.GetSection("JwtSettings:Issuer").Value!,
-                audience: _config.GetSection("JwtSettings:Audience").Value!
+                issuer: config.GetSection("JwtSettings:Issuer").Value!,
+                audience: config.GetSection("JwtSettings:Audience").Value!
             );
 
             //Create the JWT to be sent back.
@@ -48,11 +49,11 @@ namespace DuckGame.Services
             return jwt;
         }
 
-        public string? ValidateToken(string token)
+        public string? ValidateToken(string token, IConfiguration config)
         {
             if (token == null) return null;
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_config.GetSection("JwtSettings:Token").Value!);
+            var key = Encoding.UTF8.GetBytes(config.GetSection("JwtSettings:Token").Value!);
 
             try
             {
