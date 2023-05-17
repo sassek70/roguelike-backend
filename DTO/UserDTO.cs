@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using AutoMapper.Configuration.Annotations;
 
 namespace DuckGame.DTO
 {
@@ -9,8 +10,9 @@ namespace DuckGame.DTO
         [JsonPropertyName("userName")]
         public string UserName {get; set;}
 
-        [JsonPropertyName("password")]
+        [Ignore]
         [JsonIgnore]
+        [JsonPropertyName("password")]
         public string Password {get; set;} = "";
         public List<HeroDTO>? Heroes {get; set;}
     }

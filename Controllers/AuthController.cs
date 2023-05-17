@@ -6,6 +6,8 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using DuckGame.Services;
+using DuckGame.Interfaces;
 
 namespace DuckGame.Conrollers;
 
@@ -16,10 +18,12 @@ namespace DuckGame.Conrollers;
     {
         private readonly DataContextEntity _context;
         private readonly IConfiguration _configuration;
+        private readonly IUserTokenHandler _userTokenHandler;
 
 
-        public AuthController(DataContextEntity context, IConfiguration configuration)
+        public AuthController(DataContextEntity context, IConfiguration configuration, IUserTokenHandler userTokenHandler)
         {
+            _userTokenHandler = userTokenHandler;
             _configuration = configuration;
             _context = context;
         }
@@ -33,7 +37,7 @@ namespace DuckGame.Conrollers;
             {
                 AuthInfo responseObject = new AuthInfo
                 {
-                    Token = CreateToken(userDB),
+                    Token = _userTokenHandler.CreateToken(userDB),
                     UserId = userDB.Id,
                     UserName = userDB.UserName,
                 };
@@ -46,83 +50,18 @@ namespace DuckGame.Conrollers;
         [HttpPost("existingtoken")]
         public ActionResult<User> ExistingToken([FromBody] string token)
         {
-            var validToken = ValidateToken(token);
-            var getUserDetails = validToken.Split(" ");
-            var userNameToFind = getUserDetails[1].ToString();
-            User user = _context.Users.FirstOrDefault(u => u.UserName == userNameToFind);
-            if (user == null) return BadRequest("Invalid Token. Please log in again");
+            var validToken = _userTokenHandler.ValidateToken(token);
+            User user = _context.Users.FirstOrDefault(u => u.UserName == validToken);
+            // if (user == null) return BadRequest("Invalid Token. Please log in again");
 
-            UserDTO responseObject = new UserDTO
+            AuthInfo responseObject = new AuthInfo
             {
-                Id = user.Id,
-                UserName = user.UserName
+                Token = _userTokenHandler.CreateToken(user),
+                UserId = user.Id,
+                UserName = user.UserName,
             };
+            
             return Ok(responseObject);
 
         }
-
-
-
-
-    private string CreateToken(User user)
-    {
-        List<Claim> claims = new List<Claim> 
-        {
-            // new Claim(ClaimTypes.Name, user.UserName)    
-            {new Claim("UserName", user.UserName)}
-        };
-        
-        // key used to create & verify the JWT
-        //  "SystemSecurityKey" is from: dotnet add package Microsoft.IdentityModel.Tokens
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            _configuration.GetSection("JwtSettings:Token").Value!));
-
-        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddDays(7),
-            signingCredentials: cred,
-            issuer: _configuration.GetSection("JwtSettings:Issuer").Value!,
-            audience: _configuration.GetSection("JwtSettings:Audience").Value!
-        );
-
-        //Create the JWT to be sent back.
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-        return jwt;
-    }
-
-    private string? ValidateToken(string token)
-    {
-        if (token == null) return null;
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSettings:Token").Value!);
-
-        try
-        {
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
-
-            var jwtToken = (JwtSecurityToken)validatedToken;
-            var tokenUser = jwtToken.Claims.First(claim => claim.Type == "UserName").ToString();
-
-            return tokenUser;
-        }
-        catch 
-        {
-            string expired = "Token expired, please log in again";
-            return expired;
-        }
-    }
-
-
-
-
 }
