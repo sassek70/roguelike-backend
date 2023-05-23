@@ -11,10 +11,10 @@ namespace DuckGame.DTO
 
         [Ignore]
         [JsonPropertyName("heroName")]
-        public string HeroName {get; set;}
+        public required string HeroName {get; set;}
 
         [Ignore]
-        public string Class {get; set;}
+        public required string Class {get; set;}
 
         [JsonPropertyName("heroLevel")]
         public int HeroLevel {get; set;} = 1;
@@ -73,7 +73,7 @@ namespace DuckGame.DTO
         public DateTime DateLastPlayed {get; set;}
 
         // [Ignore]
-        // public string DateLastPlayed {get; set;} = "";
+        // public required string DateLastPlayed {get; set;} = "";
 
 
     }

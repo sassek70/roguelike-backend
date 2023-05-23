@@ -50,10 +50,12 @@ public class UserController : ControllerBase
 
         if (user.UserName != "" && doesExist == null) 
         {
-            User newUser = new User();
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            newUser.UserName = user.UserName;
-            newUser.PasswordHash = passwordHash;
+            
+            User newUser = new User{
+                UserName = user.UserName,
+                PasswordHash = passwordHash
+            };
 
             await _context.AddAsync(newUser);
             await _context.SaveChangesAsync();

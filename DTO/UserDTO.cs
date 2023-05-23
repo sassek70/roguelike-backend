@@ -8,7 +8,7 @@ namespace DuckGame.DTO
         public int Id {get; set;}
 
         [JsonPropertyName("userName")]
-        public string UserName {get; set;}
+        public required string UserName {get; set;}
 
         [Ignore]
         [JsonIgnore]

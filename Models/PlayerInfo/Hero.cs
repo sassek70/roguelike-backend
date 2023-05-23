@@ -15,9 +15,9 @@ namespace DuckGame.Models.PlayerInfo
         public User User {get; set;} = null!; //defines a one relationship with a User.
         
         [JsonPropertyName("heroName")]
-        public string HeroName {get; set;}
+        public required string HeroName {get; set;}
         
-        public string Class {get; set;}
+        public required string Class {get; set;}
         
         [JsonPropertyName("heroLevel")]
         public int HeroLevel {get; set;} = 1;
@@ -73,7 +73,7 @@ namespace DuckGame.Models.PlayerInfo
 
         [JsonPropertyName("dateLastPlayed")]
         public DateTime DateLastPlayed {get; set;}
-        // public string DateLastPlayed {get; set;} = "";
+        // public required string DateLastPlayed {get; set;} = "";
 
         // public User User{get; set;} = null!; // Required reference navigation to principal model.
     }
