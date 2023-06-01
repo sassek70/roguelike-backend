@@ -47,7 +47,7 @@ public class HeroController : ControllerBase
         throw new Exception("Failed to create hero");
     }
 
-    [HttpPatch("{userId}/hero/{heroId}/savehero")]
+    [HttpPatch("{userId}/savehero/{heroId}")]
     public IActionResult SaveHero(int userId, int heroId, [FromBody] HeroDTO heroUpdateBody)
     {
         Hero heroDBExist = _context.Heroes.Find(heroId);
@@ -69,8 +69,10 @@ public class HeroController : ControllerBase
             heroDBExist.Coins = heroUpdateBody.Coins;
             heroDBExist.TotalEquippedWeaponSize = heroUpdateBody.TotalEquippedWeaponSize;
             heroDBExist.TotalEquippedArmorSize = heroUpdateBody.TotalEquippedArmorSize;
+            heroDBExist.EquippedWeaponId = heroUpdateBody.EquippedWeaponId;
             heroDBExist.EquippedWeaponId1 = heroUpdateBody.EquippedWeaponId1;
             heroDBExist.EquippedWeaponId2 = heroUpdateBody.EquippedWeaponId2;
+            heroDBExist.EquippedArmorId = heroUpdateBody.EquippedArmorId;
             heroDBExist.EquippedArmorId1 = heroUpdateBody.EquippedArmorId1;
             heroDBExist.EquippedArmorId2 = heroUpdateBody.EquippedArmorId2;
             heroDBExist.EquippedArmorId3 = heroUpdateBody.EquippedArmorId3;
@@ -86,4 +88,23 @@ public class HeroController : ControllerBase
         }
         throw new Exception("Failed to save hero");
     }
+
+    [HttpGet("{userId}/load/{heroId}")]
+    public IActionResult LoadHero(int userId, int heroId)
+    {
+        if(userId != null && heroId != null)
+        {
+            Hero heroDb = _context.Heroes.Find(heroId);
+
+            if(userId != heroDb.UserId) {
+                return BadRequest("This is not the hero you are looking for.");
+            }
+                return Ok(heroDb);
+            }
+        else
+        {
+            return BadRequest("Must be logged in");
+        }
+    }
+
 }

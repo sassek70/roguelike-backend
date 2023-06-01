@@ -50,12 +50,18 @@ namespace DuckGame.Models.PlayerInfo
         [JsonPropertyName("totalEquipedArmorSize")]
         public int TotalEquippedArmorSize {get; set;} = 0;
 
+        [JsonPropertyName("equipedWeaponId")]
+        public int EquippedWeaponId {get; set;}
+
         [JsonPropertyName("equipedWeaponId1")]
         public int EquippedWeaponId1 {get; set;}
 
         [JsonPropertyName("equipedWeaponId2")]
         public int EquippedWeaponId2 {get; set;}
 
+        [JsonPropertyName("equipedArmorId")]
+        public int EquippedArmorId {get; set;}
+        
         [JsonPropertyName("equipedArmorId1")]
         public int EquippedArmorId1 {get; set;}
 
